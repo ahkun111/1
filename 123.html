@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ah Ying's 高棉情诗</title>
+    <style>
+        body {
+            font-family: 'Arial', 'Noto Sans Khmer', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://upload.wikimedia.org/wikipedia/commons/3/38/Angkor_Wat_2018.jpg');
+            color: #f4e9d8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .poem-container {
+            max-width: 800px;
+            background: rgba(107, 66, 38, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            border: 1px solid #d4af37;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-family: 'Noto Sans Khmer', cursive;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #f4e9d8;
+            padding-bottom: 10px;
+            margin: 0 0 20px 0;
+        }
+
+        .poem {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 25px 0;
+            white-space: pre-line;
+            position: relative;
+        }
+
+        .author {
+            font-size: 0.9em;
+            color: #c5b083;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .petal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 182, 193, 0.6);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="bgm" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2023/03/23/audio_6d3a1d4a0c.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="poem-container">
+        <h1>ស្នេហារបស់អ៊ីង</h1>
+
+        <div class="poem">
+            ទឹកចិត្តស្មោះស្ម័គ្រ នៅក្នុងព្រលឹងបរិសុទ្ធ
+            ដូចផ្កាឈូករីក ក្រោមពន្លឺព្រះអាទិត្យ
+            ស្នេហាយើងនឹងឋិត ដូចចេតិយអង្គរ
+            ទោះសែនឆ្នាំកន្លង ក៏មិនអាចរំលំ
+
+            你是我灵魂的清泉
+            如莲花在朝阳下绽放
+            我们的爱将永存
+            如同吴哥的圣塔
+            纵使千年流逝
+            亦无法将之磨灭
+
+            <div class="author">- Ah Ying 作于吴哥黎明前 -</div>
+        </div>
+    </div>
+
+    <script>
+        // 自动播放音乐（需要用户交互）
+        document.addEventListener('click', () => {
+            document.getElementById('bgm').play()
+        })
+
+        // 创建花瓣
+        function createPetals() {
+            for (let i = 0; i < 50; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(petal);
+            }
+        }
+        createPetals();
+    </script>
+</body>
+
+</html>
