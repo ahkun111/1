@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>实时时钟与日期</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+       .clock {
+            font-size: 6rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+       .date {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+       .phone {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+       .button-container {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+       .button-container button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 1rem;
+            border: none;
+            background-color: #000;
+            color: white;
+            cursor: pointer;
+            border: 1px solid white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+       .button-container button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="date" id="date"></div>
+    <div class="clock" id="clock"></div>
+    <div class="phone" id="phone">电话：+855 1102983</div>
+    <div class="button-container">
+        <button id="increaseDateFont">放大日期</button>
+        <button id="decreaseDateFont">缩小日期</button>
+        <button id="increaseClockFont">放大时间</button>
+        <button id="decreaseClockFont">缩小时间</button>
+        <button id="increasePhoneFont">放大电话</button>
+        <button id="decreasePhoneFont">缩小电话</button>
+    </div>
+    <script>
+        const clockElement = document.getElementById('clock');
+        const dateElement = document.getElementById('date');
+        const phoneElement = document.getElementById('phone');
+        const increaseDateFontButton = document.getElementById('increaseDateFont');
+        const decreaseDateFontButton = document.getElementById('decreaseDateFont');
+        const increaseClockFontButton = document.getElementById('increaseClockFont');
+        const decreaseClockFontButton = document.getElementById('decreaseClockFont');
+        const increasePhoneFontButton = document.getElementById('increasePhoneFont');
+        const decreasePhoneFontButton = document.getElementById('decreasePhoneFont');
+
+        let dateFontSize = 2;
+        let clockFontSize = 6;
+        let phoneFontSize = 1.5;
+
+        function updateClock() {
+            const now = new Date();
+            const utcTime = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
+            const beijingTime = new Date(utcTime + 8 * 60 * 60 * 1000);
+
+            const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const day = days[beijingTime.getDay()];
+            const year = beijingTime.getFullYear();
+            const month = String(beijingTime.getMonth() + 1).padStart(2, '0');
+            const date = String(beijingTime.getDate()).padStart(2, '0');
+            const dateString = `${year}-${month}-${date} ${day}`;
+            dateElement.textContent = dateString;
+
+            const hours = String(beijingTime.getHours()).padStart(2, '0');
+            const minutes = String(beijingTime.getMinutes()).padStart(2, '0');
+            const seconds = String(beijingTime.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            clockElement.textContent = timeString;
+        }
+
+        function increaseFontSize(element, currentSize) {
+            currentSize++;
+            element.style.fontSize = `${currentSize}rem`;
+            return currentSize;
+        }
+
+        function decreaseFontSize(element, currentSize) {
+            if (currentSize > 1) {
+                currentSize--;
+                element.style.fontSize = `${currentSize}rem`;
+            }
+            return currentSize;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        increaseDateFontButton.addEventListener('click', () => {
+            dateFontSize = increaseFontSize(dateElement, dateFontSize);
+        });
+        decreaseDateFontButton.addEventListener('click', () => {
+            dateFontSize = decreaseFontSize(dateElement, dateFontSize);
+        });
+        increaseClockFontButton.addEventListener('click', () => {
+            clockFontSize = increaseFontSize(clockElement, clockFontSize);
+        });
+        decreaseClockFontButton.addEventListener('click', () => {
+            clockFontSize = decreaseFontSize(clockElement, clockFontSize);
+        });
+        increasePhoneFontButton.addEventListener('click', () => {
+            phoneFontSize = increaseFontSize(phoneElement, phoneFontSize);
+        });
+        decreasePhoneFontButton.addEventListener('click', () => {
+            phoneFontSize = decreaseFontSize(phoneElement, phoneFontSize);
+        });
+    </script>
+</body>
+
+</html>
+    
